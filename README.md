@@ -1,4 +1,4 @@
-# workshop
+# My practicing project
 
 A new Flutter project.
 
