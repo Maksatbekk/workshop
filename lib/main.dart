@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workshop/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
@@ -37,7 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: () => {},
+          onPressed: () => {
+            
+          },
           child: const Text("Button"),
         ),
       ),
