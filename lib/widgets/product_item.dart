@@ -47,6 +47,7 @@ class ProductItem extends StatelessWidget {
           title: Text(
             product.title,
             textAlign: TextAlign.center,
+            style: TextStyle(fontFamily: FontWeight.bold.toString()),
           ),
           trailing: IconButton(
             icon: Icon(
