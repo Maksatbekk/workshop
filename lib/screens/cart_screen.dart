@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/cart.dart' show Cart;
 import '../widgets/cart_item.dart';
+import '../providers/orders.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -12,7 +13,7 @@ class CartScreen extends StatelessWidget {
     final cart = Provider.of<Cart>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Cart'),
+        title: Text('Your Cart'),
       ),
       body: Column(
         children: <Widget>[
@@ -30,19 +31,30 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                     label: Text(
-                      '\$${cart.totalAmount}',
+                      '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
-                        color: Theme.of(context).primaryTextTheme.titleMedium.color,
+                        color: Theme.of(context)
+                            .primaryTextTheme
+                            .titleMedium
+                            .color,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   TextButton(
-                    child: Text('ORDER NOW'),
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      foregroundColor: Theme.of(context).primaryColor
+                    child: Text(
+                      'ORDER NOW',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
                   )
                 ],
               ),
@@ -53,12 +65,12 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: cart.items.length,
               itemBuilder: (ctx, i) => CartItem(
-                    cart.items.values.toList()[i].id,
-                    cart.items.keys.toList()[i],
-                    cart.items.values.toList()[i].price,
-                    cart.items.values.toList()[i].quantity,
-                    cart.items.values.toList()[i].title,
-                  ),
+                cart.items.values.toList()[i].id,
+                cart.items.keys.toList()[i],
+                cart.items.values.toList()[i].price,
+                cart.items.values.toList()[i].quantity,
+                cart.items.values.toList()[i].title,
+              ),
             ),
           )
         ],
